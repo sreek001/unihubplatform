@@ -1,0 +1,515 @@
+/* ================================================================
+   BookingDashboard.css — Light Cinematic Theme
+   Classic Blue + Turquoise + Liquid Gold palette
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* ── Root Scope — Light Canvas ── */
+.booking-root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background: #fafafc;
+  color: #0f172a;
+}
+
+/* ── Ambient Gradient Background — soft blue/teal washes ── */
+.booking-root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 10%, rgba(15, 76, 129, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 80%, rgba(20, 184, 166, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(212, 175, 55, 0.02) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.booking-root > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Glassmorphic Card Base — light version ── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(15, 76, 129, 0.07);
+  border-radius: 16px;
+  box-shadow:
+    0 4px 24px rgba(15, 76, 129, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(20, 184, 166, 0.18);
+  box-shadow:
+    0 8px 32px rgba(15, 76, 129, 0.08),
+    0 0 24px rgba(20, 184, 166, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* ── Gradient Divider Line ── */
+.gradient-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(15, 76, 129, 0.15), rgba(20, 184, 166, 0.15), transparent);
+}
+
+/* ── Top Accent Bar ── */
+.accent-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(15, 76, 129, 0.4) 40%, rgba(20, 184, 166, 0.4) 70%, transparent 100%);
+  opacity: 0.8;
+  border-radius: 16px 16px 0 0;
+}
+
+/* ── Venue Button Base ── */
+.venue-btn {
+  width: 100%;
+  text-align: left;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #475569;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.2s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.venue-btn:hover {
+  color: #0f4c81;
+}
+
+.venue-btn.active {
+  color: #0f4c81;
+}
+
+/* ── The sliding glow layer ── */
+.venue-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(15, 76, 129, 0.08) 0%, rgba(20, 184, 166, 0.06) 100%);
+  border: 1px solid rgba(15, 76, 129, 0.14);
+  border-radius: 12px;
+  box-shadow: 0 0 16px rgba(15, 76, 129, 0.06);
+}
+
+/* ── Venue Type Badge ── */
+.venue-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.venue-type-badge.seminar-hall {
+  background: rgba(15, 76, 129, 0.08);
+  color: #1d4ed8;
+  border: 1px solid rgba(15, 76, 129, 0.15);
+}
+
+.venue-type-badge.lab {
+  background: rgba(20, 184, 166, 0.08);
+  color: #0f766e;
+  border: 1px solid rgba(20, 184, 166, 0.2);
+}
+
+.venue-type-badge.project-space {
+  background: rgba(212, 175, 55, 0.10);
+  color: #92400e;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* ── Venue Status Dot ── */
+.venue-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.venue-status-dot.open {
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+}
+
+.venue-status-dot.maintenance {
+  background: #f43f5e;
+  box-shadow: 0 0 6px rgba(244, 63, 94, 0.4);
+}
+
+/* ── Slot Row — light glassmorphism ── */
+.slot-row {
+  padding: 18px 20px;
+  border-radius: 14px;
+  border: 1px solid rgba(15, 76, 129, 0.07);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform, opacity;
+}
+
+.slot-row:hover {
+  border-color: rgba(15, 76, 129, 0.12);
+  box-shadow: 0 2px 12px rgba(15, 76, 129, 0.06);
+}
+
+.slot-row.clickable {
+  cursor: pointer;
+}
+
+.slot-row.clickable:hover {
+  border-color: rgba(20, 184, 166, 0.35);
+  background: rgba(240, 253, 250, 0.7);
+  box-shadow: 0 4px 18px rgba(20, 184, 166, 0.08);
+}
+
+/* ── Status Pills ── */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Available — pristine transparent hover */
+.status-open {
+  background: rgba(255, 255, 255, 0.4);
+  color: #64748b;
+  border: 1px solid rgba(15, 76, 129, 0.10);
+}
+
+/* APPROVED / Reserved — Classic Blue fill */
+.status-reserved {
+  background: #1d4ed8;
+  color: #ffffff;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 8px rgba(29, 78, 216, 0.2);
+}
+
+/* PENDING — Soft Turquoise pulse */
+.status-pending {
+  background: rgba(240, 253, 250, 1);
+  color: #0f766e;
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  animation: pendingPulse 2s ease-in-out infinite;
+}
+
+@keyframes pendingPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.15); }
+  50%       { box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.05); }
+}
+
+/* ── Primary Action Button ── */
+.btn-primary {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #1d4ed8 0%, #0f766e 100%);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 4px 20px rgba(15, 76, 129, 0.22);
+  font-family: 'Inter', sans-serif;
+  will-change: transform, opacity;
+}
+
+.btn-primary:hover {
+  opacity: 0.92;
+  box-shadow: 0 6px 28px rgba(15, 76, 129, 0.3);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── Click to Secure Button ── */
+.btn-secure {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  background: rgba(240, 253, 250, 0.8);
+  color: #0f766e;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-secure:hover {
+  background: rgba(20, 184, 166, 0.12);
+  border-color: rgba(20, 184, 166, 0.5);
+  box-shadow: 0 0 14px rgba(20, 184, 166, 0.12);
+}
+
+/* ── Approve / Reject Buttons ── */
+.btn-approve {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  background: rgba(240, 253, 250, 0.8);
+  color: #0f766e;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+}
+.btn-approve:hover {
+  background: rgba(20, 184, 166, 0.14);
+  border-color: rgba(20, 184, 166, 0.5);
+}
+
+.btn-reject {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  background: rgba(255, 241, 242, 0.8);
+  color: #e11d48;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+}
+.btn-reject:hover {
+  background: rgba(244, 63, 94, 0.1);
+  border-color: rgba(244, 63, 94, 0.4);
+}
+
+/* ── Form Inputs — light mode ── */
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 76, 129, 0.12);
+  background: rgba(255, 255, 255, 0.85);
+  color: #0f172a;
+  font-size: 0.875rem;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  border-color: rgba(15, 76, 129, 0.45);
+  box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.08);
+}
+
+.form-input::placeholder {
+  color: #94a3b8;
+}
+
+/* ── Date / time input color fixes ── */
+.form-input::-webkit-calendar-picker-indicator {
+  filter: none;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+/* ── Form Labels ── */
+.form-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+/* ── Modal Backdrop ── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+/* ── Modal Content — light glass ── */
+.modal-content {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(15, 76, 129, 0.10);
+  border-radius: 20px;
+  padding: 28px;
+  width: 100%;
+  max-width: 460px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(15, 76, 129, 0.12);
+  color: #0f172a;
+}
+
+.modal-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(15, 76, 129, 0.4), rgba(20, 184, 166, 0.4), transparent);
+}
+
+/* ── Skeleton Shimmer — light mode ── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(241, 245, 249, 0.8) 25%,
+    rgba(226, 232, 240, 0.9) 50%,
+    rgba(241, 245, 249, 0.8) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  border-radius: 10px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Live Sync Badge Pulse ── */
+.live-badge::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #14b8a6;
+  margin-right: 6px;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.5); }
+  50%      { opacity: 0.6; box-shadow: 0 0 0 5px rgba(20, 184, 166, 0); }
+}
+
+/* ── Spin Animation ── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Scrollbar Styling — light mode ── */
+.booking-root ::-webkit-scrollbar { width: 6px; }
+.booking-root ::-webkit-scrollbar-track { background: transparent; }
+.booking-root ::-webkit-scrollbar-thumb { background: rgba(15, 76, 129, 0.15); border-radius: 3px; }
+.booking-root ::-webkit-scrollbar-thumb:hover { background: rgba(15, 76, 129, 0.3); }
+
+/* ── Section Title ── */
+.section-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+/* ── Empty State ── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  color: #94a3b8;
+  text-align: center;
+}
+
+.empty-state svg {
+  margin-bottom: 12px;
+  opacity: 0.35;
+}
+
+/* ── Loading State Text ── */
+.loading-text {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-align: center;
+  padding: 16px 0;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* ── Success Toast — light ── */
+.toast-success {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 100;
+  padding: 14px 20px;
+  border-radius: 12px;
+  background: rgba(240, 253, 250, 0.95);
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  color: #0f766e;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 32px rgba(20, 184, 166, 0.12);
+  backdrop-filter: blur(16px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .booking-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

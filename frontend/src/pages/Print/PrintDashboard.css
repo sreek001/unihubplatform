@@ -1,0 +1,200 @@
+/* ================================================================
+   PrintDashboard.css — Light Cinematic Theme
+   Classic Blue + Turquoise + Liquid Gold palette
+   ================================================================ */
+
+.print-root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  color: #0f172a;
+  background: #fafafc;
+}
+
+/* Ambient Backdrop — light blue/teal washes */
+.print-root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 80% 10%, rgba(15, 76, 129, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 10% 80%, rgba(20, 184, 166, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(212, 175, 55, 0.02) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.print-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Glassmorphic Panel Base — light */
+.print-glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(15, 76, 129, 0.07);
+  border-radius: 16px;
+  box-shadow:
+    0 4px 24px rgba(15, 76, 129, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.print-glass-card:hover {
+  border-color: rgba(20, 184, 166, 0.18);
+  box-shadow:
+    0 8px 32px rgba(15, 76, 129, 0.07),
+    0 0 24px rgba(20, 184, 166, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Drag & Drop Upload Zone — Turquoise dashed */
+.upload-zone {
+  border: 2px dashed rgba(20, 184, 166, 0.3);
+  border-radius: 12px;
+  background: rgba(240, 253, 250, 0.3);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  outline: none;
+}
+
+.upload-zone.drag-active {
+  border-color: #14b8a6;
+  background: rgba(20, 184, 166, 0.07);
+  box-shadow: 0 0 24px rgba(20, 184, 166, 0.12);
+  transform: scale(0.997);
+}
+
+.upload-zone:hover {
+  border-color: rgba(20, 184, 166, 0.55);
+  background: rgba(240, 253, 250, 0.5);
+}
+
+/* Sleek Input Fields — light mode */
+.print-input, .print-select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(15, 76, 129, 0.12);
+  color: #0f172a;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.print-input::placeholder {
+  color: #94a3b8;
+}
+
+.print-input:focus, .print-select:focus {
+  border-color: rgba(15, 76, 129, 0.4);
+  box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.07);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Price Estimator — Liquid Gold tint */
+.price-tag-glow {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.06), rgba(20, 184, 166, 0.06));
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.price-tag-glow::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Status Badges — light cinematic */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.status-badge.pending {
+  background: rgba(212, 175, 55, 0.08);
+  color: #92400e;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+.status-badge.printing {
+  background: rgba(15, 76, 129, 0.07);
+  color: #1d4ed8;
+  border: 1px solid rgba(15, 76, 129, 0.15);
+}
+
+.status-badge.completed {
+  background: rgba(20, 184, 166, 0.08);
+  color: #0f766e;
+  border: 1px solid rgba(20, 184, 166, 0.2);
+}
+
+/* Premium Buttons — Classic Blue gradient */
+.print-btn-primary {
+  background: linear-gradient(135deg, #1d4ed8 0%, #14b8a6 100%);
+  color: white;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(15, 76, 129, 0.22);
+  cursor: pointer;
+  will-change: transform;
+}
+
+.print-btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(15, 76, 129, 0.32);
+  opacity: 0.95;
+}
+
+.print-btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.print-btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 100%);
+  box-shadow: none;
+}
+
+/* Light Scrollbars */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: rgba(241, 245, 249, 0.5); }
+::-webkit-scrollbar-thumb { background: rgba(15, 76, 129, 0.15); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(15, 76, 129, 0.28); }
+
+/* Shimmer Loading — light */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(241, 245, 249, 0.8) 25%,
+    rgba(226, 232, 240, 0.9) 50%,
+    rgba(241, 245, 249, 0.8) 75%
+  );
+  background-size: 200% 100%;
+  animation: loadingShimmer 1.5s infinite;
+}
+
+@keyframes loadingShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
