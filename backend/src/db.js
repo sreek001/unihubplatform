@@ -1,17 +1,25 @@
 const { Pool } = require('pg');
 
+// Initialize purely from the raw connection string URL
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || "postgresql://postgres.wzojlmakqklkdwnbjafg:UniHubSecureDb2026!@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres",
+  connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
   },
-  connectionTimeoutMillis: 10000
+  connectionTimeoutMillis: 30000, // 30 second connection window
+  keepAlive: true
 });
 
-// Create a query function that uses the pool
-const query = (text, params) => pool.query(text, params);
+const query = async (text, params) => {
+  const client = await pool.connect();
+  try {
+    return await client.query(text, params);
+  } finally {
+    client.release();
+  }
+};
 
 module.exports = {
-  query, // Now you are exporting the function 'query'
+  query,
   pool
 };

@@ -1,48 +1,202 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ChefHat } from 'lucide-react';
-import './CanteenDashboard.css';
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { ChefHat } from "lucide-react";
+import "./CanteenDashboard.css";
 
-import AdminKanban from './components/admin/AdminKanban';
-import AdminSidebar from './components/admin/AdminSidebar';
-
-// ─── MOCK INITIAL STATE ───
-const INITIAL_MENU = [
-  { id: 'm1', name: 'Chicken Biryani', stock: true },
-  { id: 'm2', name: 'Veg Meals', stock: false },
-  { id: 's1', name: 'Hot Samosa', stock: true },
-  { id: 'd1', name: 'Cold Coffee', stock: true },
-];
-
-const INITIAL_ORDERS = [
-  { id: 'ORD-8432', queue: 1, status: 'preparing', time: '10:42 AM', items: [{ name: 'Chicken Biryani', quantity: 2 }] },
-  { id: 'ORD-8433', queue: 2, status: 'received', time: '10:45 AM', items: [{ name: 'Cold Coffee', quantity: 1 }, { name: 'Hot Samosa', quantity: 2 }] },
-  { id: 'ORD-8434', queue: 3, status: 'ready', time: '10:30 AM', items: [{ name: 'Veg Meals', quantity: 1 }] },
-];
+import AdminKanban from "./components/admin/AdminKanban";
+import AdminSidebar from "./components/admin/AdminSidebar";
 
 export default function AdminDashboard() {
-  const [menuItems, setMenuItems] = useState(INITIAL_MENU);
-  const [orders, setOrders] = useState(INITIAL_ORDERS);
 
-  // ─── LOGIC ───
-  const toggleStock = (id) => {
-    setMenuItems(prev => prev.map(item => 
-      item.id === id ? { ...item, stock: !item.stock } : item
-    ));
-  };
+  const [menuItems, setMenuItems] = useState([]);
+  const [orders, setOrders] = useState([]);
 
-  const advanceStatus = (orderId, currentStatus) => {
-    const nextStatus = currentStatus === 'received' ? 'preparing' : currentStatus === 'preparing' ? 'ready' : 'completed';
-    
-    if (nextStatus === 'completed') {
-      setOrders(prev => prev.filter(o => o.id !== orderId)); // Remove from board
-    } else {
-      setOrders(prev => prev.map(o => 
-        o.id === orderId ? { ...o, status: nextStatus } : o
-      ));
+  useEffect(() => {
+
+    fetchMenu();
+    fetchOrders();
+
+    const interval = setInterval(() => {
+
+      fetchMenu();
+      fetchOrders();
+
+    }, 3000);
+
+    return () => clearInterval(interval);
+
+  }, []);
+
+  // ===============================
+  // FETCH MENU
+  // ===============================
+
+  const fetchMenu = async () => {
+
+    try {
+
+      const response = await fetch(
+        "http://localhost:4000/api/canteen/menu"
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+
+        const menu = data.menu.map(item => ({
+
+          id: item.id,
+
+          name: item.name,
+
+          stock: item.stock > 0,
+
+          stockCount: item.stock
+
+        }));
+
+        setMenuItems(menu);
+
+      }
+
+    } catch (err) {
+
+      console.error(err);
+
     }
+
   };
 
+  // ===============================
+  // FETCH ORDERS
+  // ===============================
+
+  const fetchOrders = async () => {
+
+    try {
+
+      const response = await fetch(
+        "http://localhost:4000/api/canteen/orders"
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+
+        const formattedOrders = data.orders.map(order => ({
+
+          id: order.id,
+
+          queue: order.token_number,
+
+          status:
+
+            order.status === "PENDING"
+              ? "received"
+              : order.status === "PREPARING"
+              ? "preparing"
+              : order.status === "READY"
+              ? "ready"
+              : "completed",
+
+          time: new Date(order.created_at).toLocaleTimeString([], {
+
+            hour: "2-digit",
+
+            minute: "2-digit"
+
+          }),
+
+          items: order.items
+
+        }));
+
+        setOrders(formattedOrders);
+
+      }
+
+    } catch (err) {
+
+      console.error(err);
+
+    }
+
+  };
+    // ===============================
+  // UPDATE ORDER STATUS
+  // ===============================
+
+  const advanceStatus = async (orderId, currentStatus) => {
+
+    let nextStatus;
+
+    if (currentStatus === "received") {
+
+      nextStatus = "PREPARING";
+
+    } else if (currentStatus === "preparing") {
+
+      nextStatus = "READY";
+
+    } else {
+
+      nextStatus = "DELIVERED";
+
+    }
+
+    try {
+
+      const response = await fetch(
+
+        `http://localhost:4000/api/canteen/order/${orderId}/status`,
+
+        {
+
+          method: "PATCH",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            status: nextStatus
+          })
+
+        }
+
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+
+        fetchOrders();
+
+      } else {
+
+        alert(data.message);
+
+      }
+
+    } catch (err) {
+
+      console.error(err);
+
+    }
+
+  };
+
+  // ===============================
+  // TOGGLE STOCK
+  // ===============================
+
+  const toggleStock = (item) => {
+
+    console.log("Selected Menu Item:", item);
+
+    // Stock popup will be connected in Part 3
+
+  };
   return (
     <div className="h-screen bg-[#09090b] text-zinc-100 flex font-sans selection:bg-indigo-500/30 overflow-hidden">
       
@@ -73,8 +227,11 @@ export default function AdminDashboard() {
 
       {/* RIGHT SIDEBAR: MENU TOGGLES */}
       <div className="w-80 border-l border-zinc-800/80 bg-zinc-950/30">
-        <AdminSidebar menuItems={menuItems} toggleStock={toggleStock} />
-      </div>
+  <AdminSidebar
+    menuItems={menuItems}
+    toggleStock={toggleStock}
+  />
+</div>
 
     </div>
   );

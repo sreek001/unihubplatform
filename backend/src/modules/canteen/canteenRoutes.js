@@ -14,17 +14,19 @@ router.post('/order', canteenController.createOrder);
 
 router.get(
   '/orders',
-  verifyToken,
-  requireRole('ADMIN', 'STAFF'),
+
   canteenController.getAllOrders
 );
 
 
 router.patch(
   '/order/:id/status',
-  verifyToken,
-  requireRole('ADMIN', 'STAFF'),
+  
   canteenController.updateOrderStatus
+);
+router.patch(
+  "/menu/:id/stock",
+  canteenController.updateStock
 );
 
 module.exports = router;

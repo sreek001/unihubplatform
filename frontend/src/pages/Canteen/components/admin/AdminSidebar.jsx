@@ -27,7 +27,7 @@ export default function AdminSidebar({ menuItems, toggleStock }) {
               {item.name}
             </span>
             <button 
-              onClick={() => toggleStock(item.id)}
+              onClick={() => toggleStock(item)}
               className="focus:outline-none transition-transform hover:scale-110 active:scale-95"
             >
               {item.stock ? (

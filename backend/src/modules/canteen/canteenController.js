@@ -238,3 +238,40 @@ exports.updateOrderStatus = async (req, res) => {
   }
 
 };
+exports.updateStock = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { stock } = req.body;
+
+    if (stock === undefined || stock < 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid stock value."
+      });
+    }
+
+    await db.query(
+      `
+      UPDATE menu_items
+      SET stock = $1
+      WHERE id = $2
+      `,
+      [stock, id]
+    );
+
+    return res.json({
+      success: true,
+      message: "Stock updated successfully."
+    });
+
+  } catch (err) {
+
+    console.error(err);
+
+    return res.status(500).json({
+      success: false,
+      message: err.message
+    });
+
+  }
+};

@@ -510,7 +510,9 @@ export default function PrintDashboard() {
                             <option value="B&W">Black & White (₹2)</option>
                             <option value="Color">Color (₹5)</option>
                           </select>
-                          <Printer className="absolute left-3.5 top-3.5 w-4.5 h-4.5 text-zinc-500" />
+                          <Printer
+  className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 pointer-events-none"
+/>
                         </div>
                       </div>
 
@@ -523,7 +525,7 @@ export default function PrintDashboard() {
                           <select
                             value={layout}
                             onChange={(e) => setLayout(e.target.value)}
-                            className="print-select pl-10"
+                            className="print-select pl-12"
                           >
                             <option value="Single Side">Single Side</option>
                             <option value="Double Side">Double Side</option>

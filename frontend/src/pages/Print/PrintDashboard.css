@@ -74,16 +74,24 @@
 }
 
 /* Sleek Input Fields — light mode */
-.print-input, .print-select {
+.print-input,
+.print-select {
   width: 100%;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(15, 76, 129, 0.12);
+  background: rgba(255,255,255,.85);
+  border: 1px solid rgba(15,76,129,.12);
   color: #0f172a;
   border-radius: 10px;
-  padding: 10px 14px;
-  font-size: 0.9rem;
+
+  height: 48px;
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 40px;
+  padding-left: 46px;   /* Space for icon */
+
+  font-size: .9rem;
   font-family: 'Inter', sans-serif;
-  transition: all 0.2s ease;
+  transition: all .2s ease;
   outline: none;
 }
 

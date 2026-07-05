@@ -7,15 +7,30 @@ const fluidSpring = { type: 'spring', stiffness: 280, damping: 28, mass: 0.8 };
 export default function LiveTracker({ activeOrder }) {
   if (!activeOrder) return null;
 
-  const steps = [
-    { step: 'Received', icon: CheckCircle2, active: true },
-    {
-      step: 'Preparing',
-      icon: ChefHat,
-      active: activeOrder.status === 'preparing' || activeOrder.status === 'ready',
-    },
-    { step: 'Ready', icon: Sparkles, active: activeOrder.status === 'ready' },
-  ];
+const currentStep =
+  activeOrder.status === "received"
+    ? 0
+    : activeOrder.status === "preparing"
+    ? 1
+    : 2;
+
+const steps = [
+  {
+    step: "Received",
+    icon: CheckCircle2,
+    active: currentStep >= 0
+  },
+  {
+    step: "Preparing",
+    icon: ChefHat,
+    active: currentStep >= 1
+  },
+  {
+    step: "Ready",
+    icon: Sparkles,
+    active: currentStep >= 2
+  }
+];
 
   return (
     <motion.div
